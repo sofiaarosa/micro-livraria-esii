@@ -28,9 +28,44 @@
         </div>
         <section class="container">
             <div class="columns books"></div>
+            <div id="addbook-form">
+                <div class="form-container">
+                    <h2 class="title">Cadastrar Livro</h2>
+                    <div class="form-inputs">
+                        <div class="input-kit">
+                            <label for="title">Id</label>
+                            <input id="title" class="input" type="number" />
+                        </div>
+                        <div class="input-kit">
+                            <label for="title">Título</label>
+                            <input id="title" class="input" type="text" />
+                        </div>
+                        <div class="input-kit">
+                            <label for="title">Autor</label>
+                            <input id="title" class="input" type="text" />
+                        </div>
+                        <div class="input-kit">
+                            <label for="title">Quantidade</label>
+                            <input id="title" class="input" type="number" />
+                        </div>
+                        <div class="input-kit">
+                            <label for="title">Preço</label>
+                            <input id="title" class="input" type="number" />
+                        </div>
+                        <div class="button-kit flex-center">
+                            <!-- Register button -->
+                            <button id="register-button" class="button is-info is-rounded">Cadastrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <footer class="footer has-text-centered">Feito com ❤️ na UFMG</footer>
+        <footer class="footer has-text-centered">
+            <p>Feito com ❤️ na UFMG</p>
+            <a id="addbook-link">Cadastrar novo livro no Sistema</a>
+            <a id="back-link">Voltar à lista de livros</a>
+        </footer>
 
         <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

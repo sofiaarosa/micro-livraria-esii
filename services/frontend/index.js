@@ -52,9 +52,9 @@ function calculateShipping(id, cep) {
         });
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-    const books = document.querySelector('.books');
+const books = document.querySelector('.books');
 
+document.addEventListener('DOMContentLoaded', function () {
     fetch('http://localhost:3000/products')
         .then((data) => {
             if (data.ok) {
@@ -89,12 +89,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
 });
 
+
+//funct: find book by id
+
 const searchInput = document.querySelector('#search-input');
 const searchButton = document.querySelector('#search-button');
 const resultsDiv = document.querySelector('#search-results');
 
 searchButton.addEventListener('click', () => {
     const search = searchInput.value;
+    preventDefault();
     console.log('searching...'+ search);
     fetch('http://localhost:3000/product/' + search)
         .then((data) => {
@@ -129,4 +133,24 @@ searchButton.addEventListener('click', () => {
             console.error(err);
             resultsDiv.innerHTML = '';
         });
+});
+
+//funct: add book
+
+const addbookButton = document.querySelector('#addbook-link');
+const backButton = document.querySelector('#back-link');
+const addbookForm = document.querySelector('#addbook-form');
+
+addbookButton.addEventListener('click', () => {
+    addbookForm.style.display = 'block';
+    books.style.display = 'none';
+    addbookButton.style.display = 'none';
+    backButton.style.display = 'block';
+});
+
+backButton.addEventListener('click', () => {
+    addbookForm.style.display = 'none';
+    books.style.display = 'flex';
+    addbookButton.style.display = 'block';
+    backButton.style.display = 'none';
 });

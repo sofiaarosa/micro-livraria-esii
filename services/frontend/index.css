@@ -50,6 +50,18 @@ body {
     padding: 10px;
 }
 
+#addbook-form{
+    display: none;
+}
+
+.form-container{
+    padding:50px;
+}
+
+.button-kit{
+    padding: 20px;
+}
+
 .card-image > .fa {
     font-size: 8rem;
     padding-top: 2rem;
@@ -86,6 +98,10 @@ body {
 
 .is-shady:hover {
     box-shadow: 0 10px 16px rgba(0, 0, 0, 0.13), 0 6px 6px rgba(0, 0, 0, 0.19);
+}
+
+#back-link{
+    display: none;
 }
 
 @media (min-width: 800px) {
