@@ -125,7 +125,7 @@ searchButton.addEventListener('click', () => {
             }
         })
         .catch((err) => {
-            swal('Erro', 'Erro ao listar os produtos', 'error');
+            swal('Erro', 'Não foi possível encontrar livro com o id pesquisado', 'error');
             console.error(err);
             resultsDiv.innerHTML = '';
         });
