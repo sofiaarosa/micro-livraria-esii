@@ -5,6 +5,13 @@ body {
         sans-serif;
 }
 
+.flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
 .hero-body .container {
     max-width: 700px;
 }
@@ -27,6 +34,20 @@ body {
     border-radius: 0;
     border-left: none;
     border-right: none;
+}
+
+.search-form{
+    width: 50%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 10px;
+}
+
+#search-results{
+    flex-direction: column;
+    padding: 10px;
 }
 
 .card-image > .fa {
