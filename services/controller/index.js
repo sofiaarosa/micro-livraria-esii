@@ -59,6 +59,31 @@ app.get('/product/:id', (req, res, next) => {
     });
 });
 
+app.put('/add/:id/:name/:qtt/:price/:author', (req, res, next) => {
+    const product = {
+        id: req.params.id,
+        name: req.params.name,
+        author: req.params.author,
+        quantity: req.params.qtt,
+        price: req.params.price,
+        photo: "img/design.png"
+    }
+    console.log(product);
+
+    inventory.addProduct(product, (err, resp) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send({ error: 'something failed :(' });
+        } else {
+            // Caso contrário, retorna resultado do
+            // microsserviço (um arquivo JSON) com os dados
+            // do produto pesquisado
+            console.log(resp + "bbb");
+            res.json(resp);
+        }
+    });
+});
+
 /**
  * Inicia o router
  */

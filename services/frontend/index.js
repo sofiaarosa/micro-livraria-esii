@@ -98,7 +98,6 @@ const resultsDiv = document.querySelector('#search-results');
 
 searchButton.addEventListener('click', () => {
     const search = searchInput.value;
-    preventDefault();
     console.log('searching...'+ search);
     fetch('http://localhost:3000/product/' + search)
         .then((data) => {
@@ -158,18 +157,20 @@ backButton.addEventListener('click', () => {
 const registerButton = document.querySelector('#register-button');
 registerButton.addEventListener('click', () => {
     const id = document.querySelector('#id').value;
-    const name = document.querySelector('#name').value;
-    const quantity = document.querySelector('#quantity').value;
+    const name = document.querySelector('#title').value;
+    const qtt = document.querySelector('#quantity').value;
     const author = document.querySelector('#author').value;
     const price = document.querySelector('#price').value;
 
     fetch('http://localhost:3000/add/'+id+'/'+name+'/'+qtt+'/'+price+'/'+author, {method: 'PUT'}).then((response)=>{
         if(response.ok){
             swal('Livro Adicionado', 'Livro adicionado com sucesso', 'success').then(()=>{
-                location.reload();
+                location.reload();   
             });
         }else{
             swal('Erro', 'Erro ao adicionar livro', 'error');
         }
     }).catch((err) => {});
+
+    uploadFile();
 });
