@@ -2,6 +2,18 @@ const express = require('express');
 const shipping = require('./shipping');
 const inventory = require('./inventory');
 const cors = require('cors');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, 'services/frontend/img/');
+    },
+    filename: function(req, file, callback) {
+        callback(null, file.originalname);
+    }
+});
+
+const uploadFile = multer({ storage: storage });
 
 const app = express();
 app.use(cors());
@@ -59,29 +71,36 @@ app.get('/product/:id', (req, res, next) => {
     });
 });
 
-app.put('/add/:id/:name/:qtt/:price/:author', (req, res, next) => {
-    const product = {
-        id: req.params.id,
-        name: req.params.name,
-        author: req.params.author,
-        quantity: req.params.qtt,
-        price: req.params.price,
-        photo: "img/design.png"
-    }
-    console.log(product);
+app.post('/add', uploadFile.single('image'), (req, res, next) => {
+    // Chama método do microsserviço.
 
-    inventory.addProduct(product, (err, resp) => {
-        if (err) {
-            console.error(err);
-            res.status(500).send({ error: 'something failed :(' });
-        } else {
-            // Caso contrário, retorna resultado do
-            // microsserviço (um arquivo JSON) com os dados
-            // do produto pesquisado
-            console.log(resp + "bbb");
-            res.json(resp);
+    const {id, name, author, quantity, price, photo} = req.body;
+
+    console.log("filename" + req.file.filename);
+
+    inventory.addProduct(
+        {
+            id: id,
+            name: name,
+            author: author,
+            quantity: parseInt(quantity),
+            price: parseFloat(price),
+            photo: 'img/' + req.file.originalname
+        },
+        (err, product) => {
+            // Se ocorrer algum erro de comunicação
+            // com o microsserviço, retorna para o navegador.
+            if (err) {
+                console.error(err);
+                res.status(500).send({ error: 'something failed :(' });
+            } else {
+                // Caso contrário, retorna resultado do
+                // microsserviço (um arquivo JSON) com os dados
+                // do produto pesquisado
+                res.json(product);
+            }
         }
-    });
+    );
 });
 
 /**

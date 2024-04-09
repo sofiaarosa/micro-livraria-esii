@@ -145,6 +145,9 @@ addbookButton.addEventListener('click', () => {
     books.style.display = 'none';
     addbookButton.style.display = 'none';
     backButton.style.display = 'block';
+    resultsDiv.innerHTML = '';
+    searchInput.value = '';
+
 });
 
 backButton.addEventListener('click', () => {
@@ -161,16 +164,45 @@ registerButton.addEventListener('click', () => {
     const qtt = document.querySelector('#quantity').value;
     const author = document.querySelector('#author').value;
     const price = document.querySelector('#price').value;
+    const image = document.querySelector('#image').files[0];
 
-    fetch('http://localhost:3000/add/'+id+'/'+name+'/'+qtt+'/'+price+'/'+author, {method: 'PUT'}).then((response)=>{
-        if(response.ok){
-            swal('Livro Adicionado', 'Livro adicionado com sucesso', 'success').then(()=>{
-                location.reload();   
+    console.log(image)
+
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('name', name);
+    formData.append('quantity', qtt);
+    formData.append('author', author);
+    formData.append('price', price);
+    formData.append('image', image);
+
+    fetch('http://localhost:3000/add', {
+        method: 'POST',
+        enctype: 'multipart/form-data',
+        body: formData,
+    })
+    .then((response) => {
+        if (response.ok) {
+            swal('Livro Adicionado', 'Livro adicionado com sucesso', 'success').then(() => {
+                location.reload();
             });
-        }else{
+        } else {
             swal('Erro', 'Erro ao adicionar livro', 'error');
         }
-    }).catch((err) => {});
+    })
+    .catch((err) => {
+        swal('Erro', 'Erro ao adicionar livro', 'error');
+        console.error(err);
+    });
 
-    uploadFile();
-});
+    // fetch('http://localhost:3000/add/'+id+'/'+name+'/'+qtt+'/'+price+'/'+author+'/', {method: 'PUT'}).then((response)=>{
+    //     if(response.ok){
+    //         swal('Livro Adicionado', 'Livro adicionado com sucesso', 'success').then(()=>{
+    //             location.reload();   
+    //         });
+    //     }else{
+    //         swal('Erro', 'Erro ao adicionar livro', 'error');
+    //     }
+    // }).catch((err) => {});
+
+}); 
